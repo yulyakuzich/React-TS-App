@@ -17,6 +17,7 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
+  "types": ["node", "jest", "@testing-library/jest-dom"],
   "include": [".eslintrc.cjs", "src", "src/.prettierrc.cjs", "vite.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
