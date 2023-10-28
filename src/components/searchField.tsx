@@ -2,6 +2,7 @@ import { Component } from 'react';
 
 type SearchFieldProps = {
   onSearch: (query: string) => void;
+  value: string;
 };
 type SearchFieldState = {
   request: string;
@@ -12,7 +13,7 @@ export default class SearchField extends Component<
   SearchFieldState
 > {
   state: SearchFieldState = {
-    request: '',
+    request: this.props.value,
   };
 
   handleRequestChange = (e: React.FormEvent<HTMLInputElement>): void => {
