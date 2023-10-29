@@ -1,4 +1,7 @@
 import { getPeople } from './api';
+import { ErrorBoundary } from './components/errorBoundary';
+import ErrorButton from './components/errorButton';
+import LoadingComponent from './components/loadingComponent';
 import MainSection from './components/mainSection';
 import SearchField from './components/searchField';
 import { Component } from 'react';
@@ -40,12 +43,20 @@ export default class App extends Component {
   render() {
     return (
       <div>
-        <SearchField value={this.state.search} onSearch={this.handleSearch} />
-        {this.state.loading ? (
-          <p>Loading...</p>
-        ) : (
-          <MainSection results={this.state.results} />
-        )}
+        <ErrorBoundary>
+          <>
+            <SearchField
+              value={this.state.search}
+              onSearch={this.handleSearch}
+            />
+            {this.state.loading ? (
+              <LoadingComponent />
+            ) : (
+              <MainSection results={this.state.results} />
+            )}
+            <ErrorButton />
+          </>
+        </ErrorBoundary>
       </div>
     );
   }

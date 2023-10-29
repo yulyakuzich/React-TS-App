@@ -1,12 +1,5 @@
 import { Component } from 'react';
-
-type SearchFieldProps = {
-  onSearch: (query: string) => void;
-  value: string;
-};
-type SearchFieldState = {
-  request: string;
-};
+import { SearchFieldProps, SearchFieldState } from '../types';
 
 export default class SearchField extends Component<
   SearchFieldProps,
@@ -49,7 +42,7 @@ export default class SearchField extends Component<
               </div>
               <button
                 type="submit"
-                className="search_batton"
+                className="search_button button"
                 onClick={this.handleSubmit}
               >
                 <svg height="1em" viewBox="0 0 512 512">
