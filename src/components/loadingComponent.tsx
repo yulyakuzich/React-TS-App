@@ -5,9 +5,11 @@ export default class LoadingComponent extends Component {
     return (
       <section>
         <div className="container">
-          <div className="ring">
-            Loading
-            <span className="circle"></span>
+          <div className="loading_container">
+            <div className="ring">
+              Loading
+              <span className="circle"></span>
+            </div>
           </div>
         </div>
       </section>
