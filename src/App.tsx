@@ -1,63 +1,45 @@
 import { getPeople } from './api';
-import { ErrorBoundary } from './components/errorBoundary';
-import ErrorButton from './components/errorButton';
-import LoadingComponent from './components/loadingComponent';
-import MainSection from './components/mainSection';
-import SearchField from './components/searchField';
-import { Component } from 'react';
+import ErrorButtonLayout from './components/ErrorButtonLayout/errorButtonLayout';
+import LoadingComponent from './components/LoadingComponent/loadingComponent';
+import MainSection from './components/MainSection/mainSection';
+import { SearchField } from './components/SearchField/searchField';
+import { useEffect, useState } from 'react';
 
-export default class App extends Component {
-  state = {
-    results: [],
-    loading: false,
-    search: localStorage.getItem('search') || '',
-  };
+export default function App() {
+  const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const searchLocal = localStorage.getItem('search') || '';
 
-  componentDidMount(): void {
-    const searchLocal = localStorage.getItem('search');
+  useEffect(() => {
+    setLoading(true);
 
-    this.setState({ loading: true });
-
-    getPeople(searchLocal || '').then((resp) => {
-      console.log(resp.data);
-      this.setState({
-        results: resp.data.results,
-        loading: false,
-      });
+    getPeople(searchLocal).then((resp) => {
+      setResults(resp.data.results);
+      setLoading(false);
     });
-  }
+  }, [searchLocal]);
 
-  handleSearch = (query: string) => {
+  const handleSearch = (query: string) => {
     localStorage.setItem('search', query);
-    console.log(query);
-    this.setState({ loading: true });
+    setLoading(true);
     getPeople(query).then((resp) => {
-      console.log(resp.data);
-      this.setState({
-        results: resp.data.results,
-        loading: false,
-      });
+      setResults(resp.data.results);
+      setLoading(false);
     });
   };
 
-  render() {
-    return (
-      <div>
-        <ErrorBoundary>
-          <>
-            <SearchField
-              value={this.state.search}
-              onSearch={this.handleSearch}
-            />
-            {this.state.loading ? (
-              <LoadingComponent />
-            ) : (
-              <MainSection results={this.state.results} />
-            )}
-            <ErrorButton />
-          </>
-        </ErrorBoundary>
+  return (
+    <div className="container">
+      <div className="column">
+        <img
+          className="logo_image"
+          src="star-wars-logo.svg"
+          alt="star-wars-logo"
+        />
       </div>
-    );
-  }
+      <SearchField value={searchLocal} onSearch={handleSearch} />
+      {loading ? <LoadingComponent /> : <MainSection results={results} />}
+      <ErrorButtonLayout />
+    </div>
+  );
 }
