@@ -25,7 +25,9 @@
 .characters_list_item_avatar img {
   filter: invert();
 }
-
+.characters_list_item_info {
+  margin-bottom: 20px;
+}
 .characters_list_item_name {
   font-size: 20px;
   font-weight: 600;
@@ -34,4 +36,11 @@
 .character_detail {
   width: 100%;
   margin-bottom: 10px;
+}
+.character_link {
+  color: #fff;
+  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+.character_link:hover {
+  color: #9a3fff;
 }

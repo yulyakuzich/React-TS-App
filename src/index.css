@@ -136,11 +136,26 @@ strong {
   font-weight: 600;
 }
 
+.app-container {
+  min-height: 100vh;
+}
+
 .container {
   margin: 0 auto;
   max-width: 1200px;
   padding: 10px;
 }
+.container-compact {
+  width: 50%;
+  height: 100vh;
+  overflow: auto;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
+
 .column {
   display: flex;
   flex-direction: column;

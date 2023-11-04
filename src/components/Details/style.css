@@ -1,0 +1,11 @@
+.item-details {
+  width: calc(50% - 20px);
+  box-shadow: -10px 0px 20px #1b2667;
+  padding: 20px;
+}
+.close_icon {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  cursor: pointer;
+}
