@@ -6,7 +6,6 @@ import { ArrowRight } from '../UI/Icons/ArrowRight';
 
 export function Pagination({ total, currentPage, onChange }: PaginationProps) {
   const pagesCount = Math.ceil(total / 10);
-  console.log(pagesCount);
 
   const goBack = () => {
     if (currentPage !== 1) {

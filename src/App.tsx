@@ -16,11 +16,11 @@ export default function App() {
 
   const { search, page } = Object.fromEntries(searchParams);
 
+  console.log(page);
+
   const searchLocal = search ? search : localStorage.getItem('search') || '';
 
   const location = useLocation();
-
-  console.log(Object.fromEntries(searchParams));
 
   useEffect(() => {
     setLoading(true);
@@ -54,8 +54,6 @@ export default function App() {
     });
   };
 
-  console.log(results);
-
   const selectedItem = location?.pathname.includes('persons');
 
   return (
@@ -75,7 +73,7 @@ export default function App() {
           <Pagination
             onChange={handlePageChange}
             total={total}
-            currentPage={parseInt(page)}
+            currentPage={page ? parseInt(page) : 1}
           />
         )}
         <ErrorButtonLayout />
