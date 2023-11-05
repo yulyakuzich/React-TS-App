@@ -18,3 +18,27 @@
 .button:hover {
   opacity: 0.8;
 }
+.button__bordered {
+  color: #fff;
+  border: 0;
+  font-size: 16px;
+  padding: 10px;
+  transition: 0.8s;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 2px solid #c226ff;
+  transition: 0.2s;
+}
+.button__bordered:hover {
+  background: #c226ff;
+}
+
+.spaced {
+  margin: 10px;
+}

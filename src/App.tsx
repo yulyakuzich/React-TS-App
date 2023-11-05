@@ -3,33 +3,58 @@ import ErrorButtonLayout from './components/ErrorButtonLayout/errorButtonLayout'
 import LoadingComponent from './components/LoadingComponent/loadingComponent';
 import { SearchField } from './components/SearchField/searchField';
 import { useEffect, useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import MainSection from './components/MainSection/MainSection';
+import { Pagination } from './components/Pagination/Pagination';
 
 export default function App() {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
-  const searchLocal = localStorage.getItem('search') || '';
+  const [total, setTotal] = useState(0);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const { search, page } = Object.fromEntries(searchParams);
+
+  const searchLocal = search ? search : localStorage.getItem('search') || '';
 
   const location = useLocation();
+
+  console.log(Object.fromEntries(searchParams));
 
   useEffect(() => {
     setLoading(true);
 
-    getPeople(searchLocal).then((resp) => {
+    getPeople(searchLocal, page).then((resp) => {
       setResults(resp.data.results);
+      setTotal(resp.data.count);
       setLoading(false);
     });
-  }, [searchLocal]);
+  }, [searchLocal, page]);
 
   const handleSearch = (query: string) => {
     localStorage.setItem('search', query);
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      search: query,
+      page: '1',
+    });
     setLoading(true);
     getPeople(query).then((resp) => {
       setResults(resp.data.results);
+      setTotal(resp.data.count);
       setLoading(false);
     });
   };
+
+  const handlePageChange = (page: number) => {
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      page: page.toString(),
+    });
+  };
+
+  console.log(results);
 
   const selectedItem = location?.pathname.includes('persons');
 
@@ -45,6 +70,14 @@ export default function App() {
         </div>
         <SearchField value={searchLocal} onSearch={handleSearch} />
         {loading ? <LoadingComponent /> : <MainSection results={results} />}
+
+        {!loading && results.length !== 0 && (
+          <Pagination
+            onChange={handlePageChange}
+            total={total}
+            currentPage={parseInt(page)}
+          />
+        )}
         <ErrorButtonLayout />
       </div>
       <Outlet />

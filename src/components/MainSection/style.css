@@ -1,3 +1,6 @@
+main {
+  width: 100%;
+}
 .characters_list {
   display: flex;
   flex-wrap: wrap;
@@ -21,12 +24,17 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.3s;
+}
+.characters_list_item_avatar:hover {
+  background: linear-gradient(180deg, #226cff 0%, #c226ff 100%);
 }
 .characters_list_item_avatar img {
   filter: invert();
 }
 .characters_list_item_info {
   margin-bottom: 20px;
+  width: 100%;
 }
 .characters_list_item_name {
   font-size: 20px;
@@ -36,11 +44,16 @@
 .character_detail {
   width: 100%;
   margin-bottom: 10px;
+  align-self: flex-start;
 }
 .character_link {
   color: #fff;
-  transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: 0.2s;
 }
 .character_link:hover {
   color: #9a3fff;
+}
+
+.no-results-message {
+  margin: 40px 0px 100px 0px;
 }

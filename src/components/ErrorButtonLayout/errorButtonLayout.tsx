@@ -17,7 +17,7 @@ function ErrorButtonLayout() {
 
   return (
     <section>
-      <div className="container column">
+      <div className="column">
         <ButtonClassic
           onClick={() => {
             setHasError(true);

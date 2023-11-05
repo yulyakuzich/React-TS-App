@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 export default function Details() {
   const [loading, setLoading] = useState(false);
   const [details, setDetails] = useState<PersonType | null>(null);
+  const urlParams = new URLSearchParams(window.location.search);
 
   const { id } = useParams();
 
@@ -28,7 +29,7 @@ export default function Details() {
         details && (
           <>
             <div className="close_icon">
-              <Link to="/">
+              <Link to={`/?${urlParams.toString()}`}>
                 <CloseIcon />
               </Link>
             </div>

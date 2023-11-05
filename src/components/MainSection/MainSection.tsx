@@ -3,18 +3,32 @@ import './style.css';
 import { MainSectionProps } from './types';
 
 export default function MainSection(props: MainSectionProps) {
+  const urlParams = new URLSearchParams(window.location.search);
+
   return (
     <main>
       <div className="characters_list">
+        {props.results.length == 0 && (
+          <div className="column fullwidth column-center no-results-message">
+            no results
+          </div>
+        )}
         {props.results.map((el) => (
           <div className="characters_list_item column" key={el.name}>
-            <Link to={'/'}>
+            <Link
+              className="character_link"
+              to={`persons/${el.url.replace(
+                'https://swapi.dev/api/people/',
+                ''
+              )}?${urlParams.toString()}`}
+            >
               <div className="characters_list_item_avatar">
                 <img src="/star-wars.svg" alt="" />
               </div>
             </Link>
+
+            <p className="characters_list_item_name">{el.name}</p>
             <div className="characters_list_item_info">
-              <p className="characters_list_item_name">{el.name}</p>
               <p className="character_detail">
                 <strong>Birth year:</strong> {el.birth_year}
               </p>
@@ -33,7 +47,7 @@ export default function MainSection(props: MainSectionProps) {
               to={`persons/${el.url.replace(
                 'https://swapi.dev/api/people/',
                 ''
-              )}`}
+              )}?${urlParams.toString()}`}
             >
               More details
             </Link>

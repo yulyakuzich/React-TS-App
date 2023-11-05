@@ -10,6 +10,21 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: (
+      <section>
+        <div className="container column">
+          <h1 className="error_message">Somethig went wrong</h1>
+          <button
+            className="button"
+            onClick={() => {
+              location.reload();
+            }}
+          >
+            Please, refresh page!
+          </button>
+        </div>
+      </section>
+    ),
     children: [
       {
         path: 'persons/:id',

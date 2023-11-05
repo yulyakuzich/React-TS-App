@@ -1,7 +1,7 @@
 import { ButtonProps } from './types';
 import './style.css';
 
-export function ButtonRounded({
+export function ButtonRoundedBordered({
   style,
   type,
   children,
@@ -13,7 +13,7 @@ export function ButtonRounded({
       style={style}
       type={type}
       onClick={onClick}
-      className="button button__rounded"
+      className="button__bordered spaced"
     >
       {icon && icon}
       {children && children}
