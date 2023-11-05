@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getPerson } from '../../api';
 import './style.css';
 
@@ -11,6 +11,8 @@ export default function Details() {
   const [loading, setLoading] = useState(false);
   const [details, setDetails] = useState<PersonType | null>(null);
   const urlParams = new URLSearchParams(window.location.search);
+
+  const navigate = useNavigate();
 
   const { id } = useParams();
 
@@ -34,6 +36,11 @@ export default function Details() {
                 <CloseIcon />
               </Link>
             </div>
+
+            <div
+              className="details-outside-area"
+              onClick={() => navigate(`/?${urlParams.toString()}`)}
+            ></div>
             <p className="characters_list_item_name">{details.name}</p>
             <p className="character_detail">
               <strong>Birth year:</strong> {details.birth_year}
