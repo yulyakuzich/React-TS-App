@@ -1,11 +1,11 @@
 import { getPeople } from './api';
 import ErrorButtonLayout from './components/ErrorButtonLayout/errorButtonLayout';
-import LoadingComponent from './components/LoadingComponent/loadingComponent';
 import { SearchField } from './components/SearchField/searchField';
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import MainSection from './components/MainSection/MainSection';
 import { Pagination } from './components/Pagination/Pagination';
+import { LoadingComponent } from './components/LoadingComponent/LoadingComponent';
 
 export default function App() {
   const [results, setResults] = useState([]);

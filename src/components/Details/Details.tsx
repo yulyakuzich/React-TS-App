@@ -1,10 +1,11 @@
 import { Link, useParams } from 'react-router-dom';
 import { getPerson } from '../../api';
 import './style.css';
-import LoadingComponent from '../LoadingComponent/loadingComponent';
+
 import { PersonType } from '../MainSection/types';
 import { CloseIcon } from '../UI/Icons/CloseIcon';
 import { useEffect, useState } from 'react';
+import { LoadingComponent } from '../LoadingComponent/LoadingComponent';
 
 export default function Details() {
   const [loading, setLoading] = useState(false);

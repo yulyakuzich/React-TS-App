@@ -1,6 +1,6 @@
 import './style.css';
 
-export default function LoadingComponent() {
+export function LoadingComponent() {
   return (
     <section>
       <div className="column">
