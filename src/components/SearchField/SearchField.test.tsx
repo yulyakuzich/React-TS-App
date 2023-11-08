@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from 'vitest';
-import { SearchField } from './searchField';
+
 import { fireEvent, render, screen } from '@testing-library/react';
+import { SearchField } from './SearchField';
 
 const mockedCallback = vi.fn();
 

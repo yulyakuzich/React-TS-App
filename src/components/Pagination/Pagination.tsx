@@ -5,7 +5,8 @@ import { ArrowLeft } from '../UI/Icons/ArrowLeft';
 import { ArrowRight } from '../UI/Icons/ArrowRight';
 
 export function Pagination({ total, currentPage, onChange }: PaginationProps) {
-  const pagesCount = Math.ceil(total / 10);
+  const cardsPerPage = 10;
+  const pagesCount = Math.ceil(total / cardsPerPage);
 
   const goBack = () => {
     if (currentPage !== 1) {

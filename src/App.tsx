@@ -6,7 +6,7 @@ import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
 import MainSection from './components/MainSection/MainSection';
 import { Pagination } from './components/Pagination/Pagination';
 import { LoadingComponent } from './components/LoadingComponent/LoadingComponent';
-import { SearchField } from './components/SearchField/searchField';
+import { SearchField } from './components/SearchField/SearchField';
 
 export default function App() {
   const [results, setResults] = useState([]);
