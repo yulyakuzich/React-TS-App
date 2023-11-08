@@ -5,7 +5,7 @@ export function LoadingComponent() {
     <section>
       <div className="column">
         <div className="loading_container">
-          <div className="ring">
+          <div data-testid="loading" className="ring">
             Loading
             <span className="circle"></span>
           </div>
