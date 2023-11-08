@@ -5,5 +5,6 @@ export type ButtonProps = {
   children?: string;
   style?: CSSProperties;
   icon?: ReactElement;
+  dataTestid?: string;
   onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 };

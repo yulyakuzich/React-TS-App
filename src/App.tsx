@@ -17,8 +17,6 @@ export default function App() {
 
   const { search, page } = Object.fromEntries(searchParams);
 
-  console.log(page);
-
   const searchLocal = search ? search : localStorage.getItem('search') || '';
 
   const location = useLocation();

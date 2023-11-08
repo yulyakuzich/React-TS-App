@@ -6,6 +6,7 @@ export function ButtonRounded({
   type,
   children,
   icon,
+  dataTestid,
   onClick,
 }: ButtonProps) {
   return (
@@ -13,6 +14,7 @@ export function ButtonRounded({
       style={style}
       type={type}
       onClick={onClick}
+      data-testid={dataTestid}
       className="button button__rounded"
     >
       {icon && icon}

@@ -29,6 +29,7 @@ export function SearchField(props: SearchFieldProps) {
             />
           </div>
           <ButtonRounded
+            dataTestid="search-button"
             onClick={handleSubmit}
             icon={<SearchIcon />}
           ></ButtonRounded>
