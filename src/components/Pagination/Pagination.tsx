@@ -1,6 +1,6 @@
 import { PaginationProps } from './types';
 import './style.css';
-import { ButtonRoundedBordered } from '../UI/Buttons/ButtonRoundedBordered';
+import { ButtonRoundedBordered } from '../UI/Buttons/ButtonRoundedBordered/ButtonRoundedBordered';
 import { ArrowLeft } from '../UI/Icons/ArrowLeft';
 import { ArrowRight } from '../UI/Icons/ArrowRight';
 

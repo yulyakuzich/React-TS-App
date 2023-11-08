@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-
-import { ButtonClassic } from '../UI/Buttons/ButtonClaasic';
+import { ButtonClassic } from '../UI/Buttons/ButtonClassic/ButtonClaasic';
 
 function ErrorButtonLayout() {
   const [hasError, setHasError] = useState<boolean>(false);

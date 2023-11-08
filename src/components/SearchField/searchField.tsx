@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ButtonRounded } from '../UI/Buttons/ButtonRounded';
+import { ButtonRounded } from '../UI/Buttons/ButtonRounded/ButtonRounded';
 import { SearchIcon } from '../UI/Icons/SearchIcon';
 import { SearchFieldProps } from './types';
 import './style.css';

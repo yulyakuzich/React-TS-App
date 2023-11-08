@@ -1,5 +1,5 @@
-import { ButtonProps } from './types';
-import './style.css';
+import { ButtonProps } from '../types';
+import '../style.css';
 
 export function ButtonRoundedBordered({
   style,
