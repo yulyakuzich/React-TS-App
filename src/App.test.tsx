@@ -1,7 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 import App from './App';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import LocationDisplay from './App';
 
 const MockApp = () => {
   return (
@@ -46,7 +47,31 @@ describe('SearchField component', () => {
     const InputElement = screen.getByPlaceholderText(
       'type your request'
     ) as HTMLInputElement;
-    // expect(localStorageMock.getItem).toHaveBeenCalledWith('search');
     expect(InputElement).toHaveValue('Test Value');
+  });
+});
+
+describe('Routing', () => {
+  it('404 page is displayed when navigating to an invalid route', () => {
+    const badRoute = '/some/bad/route';
+    render(
+      <MemoryRouter initialEntries={[badRoute]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText('Page not found')).toBeInTheDocument();
+  });
+
+  test('rendering a component that uses useLocation', () => {
+    const route = '/some-route';
+
+    render(
+      <MemoryRouter initialEntries={[route]}>
+        <LocationDisplay />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByTestId('location-display')).toHaveTextContent(route);
   });
 });

@@ -1,14 +1,27 @@
 import { getPeople } from './api';
 import ErrorButtonLayout from './components/ErrorButtonLayout/errorButtonLayout';
-
 import { useEffect, useState } from 'react';
-import { Outlet, useLocation, useSearchParams } from 'react-router-dom';
+import {
+  Outlet,
+  Route,
+  Routes,
+  useLocation,
+  useSearchParams,
+} from 'react-router-dom';
 import MainSection from './components/MainSection/MainSection';
 import { Pagination } from './components/Pagination/Pagination';
 import { LoadingComponent } from './components/LoadingComponent/LoadingComponent';
 import { SearchField } from './components/SearchField/SearchField';
+import Details from './components/Details/Details';
+import { Page404 } from './components/Page404/Page404';
 
-export default function App() {
+export const LocationDisplay = () => {
+  const location = useLocation();
+
+  return <div data-testid="location-display">{location.pathname}</div>;
+};
+
+const AppLayout = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
@@ -54,7 +67,6 @@ export default function App() {
   };
 
   const selectedItem = location?.pathname.includes('persons');
-
   return (
     <div className="row app-container">
       <div className={`container ${selectedItem && 'container-compact'}`}>
@@ -79,5 +91,37 @@ export default function App() {
       </div>
       <Outlet />
     </div>
+  );
+};
+
+const ErEl = () => {
+  return (
+    <section>
+      <div className="container column">
+        <h1 className="error_message">Somethig went wrong</h1>
+        <button
+          className="button"
+          onClick={() => {
+            location.reload();
+          }}
+        >
+          Please, refresh page!
+        </button>
+      </div>
+    </section>
+  );
+};
+
+export default function App() {
+  return (
+    <>
+      <Routes>
+        <Route path={'/'} element={<AppLayout />} errorElement={<ErEl />}>
+          <Route path="persons/:id" element={<Details />} />
+        </Route>
+        <Route path="*" element={<Page404 />}></Route>
+      </Routes>
+      <LocationDisplay />
+    </>
   );
 }
