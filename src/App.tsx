@@ -21,7 +21,7 @@ export const LocationDisplay = () => {
   return <div data-testid="location-display">{location.pathname}</div>;
 };
 
-const AppLayout = () => {
+export const AppLayout = () => {
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
@@ -94,7 +94,7 @@ const AppLayout = () => {
   );
 };
 
-const ErEl = () => {
+export const ErrorEl = () => {
   return (
     <section>
       <div className="container column">
@@ -116,7 +116,7 @@ export default function App() {
   return (
     <>
       <Routes>
-        <Route path={'/'} element={<AppLayout />} errorElement={<ErEl />}>
+        <Route path={'/'} element={<AppLayout />} errorElement={<ErrorEl />}>
           <Route path="persons/:id" element={<Details />} />
         </Route>
         <Route path="*" element={<Page404 />}></Route>
