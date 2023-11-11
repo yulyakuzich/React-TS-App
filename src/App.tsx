@@ -1,6 +1,6 @@
 import { getPeople } from './api';
 import ErrorButtonLayout from './components/ErrorButtonLayout/errorButtonLayout';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {
   Outlet,
   Route,
@@ -14,6 +14,14 @@ import { LoadingComponent } from './components/LoadingComponent/LoadingComponent
 import { SearchField } from './components/SearchField/SearchField';
 import Details from './components/Details/Details';
 import { Page404 } from './components/Page404/Page404';
+import { SearchProvider } from './context/SearchProvider';
+import { SearchContext } from './context/SearchContext';
+import {
+  ResultsContext,
+  ResultsDispatchContext,
+} from './context/ResultsContext';
+import { PersonType } from './components/MainSection/types';
+import { ResultsProvider } from './context/ResultsProvider';
 
 export const LocationDisplay = () => {
   const location = useLocation();
@@ -22,42 +30,34 @@ export const LocationDisplay = () => {
 };
 
 export const AppLayout = () => {
-  const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { search, page } = Object.fromEntries(searchParams);
+  const { page } = Object.fromEntries(searchParams);
+
+  const search = useContext(SearchContext);
+  const results = useContext(ResultsContext);
+  const dispatchResults = useContext(ResultsDispatchContext);
 
   const searchLocal = search ? search : localStorage.getItem('search') || '';
 
   const location = useLocation();
 
+  const updateResults = (res: PersonType[]) => {
+    dispatchResults && dispatchResults({ type: 'update', items: res });
+  };
+
   useEffect(() => {
     setLoading(true);
 
-    getPeople(searchLocal, page).then((resp) => {
-      setResults(resp.data.results);
+    getPeople(search || '', page).then((resp) => {
+      updateResults(resp.data.results);
       setTotal(resp.data.count);
       setLoading(false);
     });
-  }, [searchLocal, page]);
-
-  const handleSearch = (query: string) => {
-    localStorage.setItem('search', query);
-    setSearchParams({
-      ...Object.fromEntries(searchParams),
-      search: query,
-      page: '1',
-    });
-    setLoading(true);
-    getPeople(query).then((resp) => {
-      setResults(resp.data.results);
-      setTotal(resp.data.count);
-      setLoading(false);
-    });
-  };
+  }, [searchLocal, page, search]);
 
   const handlePageChange = (page: number) => {
     setSearchParams({
@@ -77,8 +77,8 @@ export const AppLayout = () => {
             alt="star-wars-logo"
           />
         </div>
-        <SearchField value={searchLocal} onSearch={handleSearch} />
-        {loading ? <LoadingComponent /> : <MainSection results={results} />}
+        <SearchField />
+        {loading ? <LoadingComponent /> : <MainSection />}
 
         {!loading && results.length !== 0 && (
           <Pagination
@@ -115,13 +115,21 @@ export const ErrorEl = () => {
 export default function App() {
   return (
     <>
-      <Routes>
-        <Route path={'/'} element={<AppLayout />} errorElement={<ErrorEl />}>
-          <Route path="persons/:id" element={<Details />} />
-        </Route>
-        <Route path="*" element={<Page404 />}></Route>
-      </Routes>
-      <LocationDisplay />
+      <SearchProvider>
+        <ResultsProvider>
+          <Routes>
+            <Route
+              path={'/'}
+              element={<AppLayout />}
+              errorElement={<ErrorEl />}
+            >
+              <Route path="persons/:id" element={<Details />} />
+            </Route>
+            <Route path="*" element={<Page404 />}></Route>
+          </Routes>
+          <LocationDisplay />
+        </ResultsProvider>
+      </SearchProvider>
     </>
   );
 }

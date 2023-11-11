@@ -1,18 +1,16 @@
-import { describe, expect, it, vi } from 'vitest';
+import { describe, expect, it } from 'vitest';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import { SearchField } from './SearchField';
 
-const mockedCallback = vi.fn();
-
 describe('SearchField', () => {
   it('should render inputElement', async () => {
-    render(<SearchField value="" onSearch={mockedCallback} />);
+    render(<SearchField />);
     const InputElement = screen.getByPlaceholderText('type your request');
     expect(InputElement).toBeInTheDocument;
   });
   it('should be able to type in input', async () => {
-    render(<SearchField value="" onSearch={mockedCallback} />);
+    render(<SearchField />);
     const InputElement = screen.getByPlaceholderText(
       'type your request'
     ) as HTMLInputElement;
@@ -20,7 +18,7 @@ describe('SearchField', () => {
     expect(InputElement.value).toBe('go');
   });
   it('input value should keep the same after click', async () => {
-    render(<SearchField value="" onSearch={mockedCallback} />);
+    render(<SearchField />);
     const InputElement = screen.getByPlaceholderText(
       'type your request'
     ) as HTMLInputElement;

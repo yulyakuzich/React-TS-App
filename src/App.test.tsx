@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import App from './App';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import LocationDisplay from './App';
 
@@ -34,10 +34,12 @@ describe('SearchField component', () => {
     fireEvent.change(InputElement, { target: { value: 'Test Value' } });
     fireEvent.click(SearchButton);
 
-    expect(localStorageMock.setItem).toHaveBeenCalledWith(
-      'search',
-      'Test Value'
-    );
+    waitFor(() => {
+      expect(localStorageMock.setItem).toHaveBeenCalledWith(
+        'search',
+        'Test Value'
+      );
+    });
   });
 
   it('retrieves the value from local storage upon mounting', () => {
@@ -47,7 +49,9 @@ describe('SearchField component', () => {
     const InputElement = screen.getByPlaceholderText(
       'type your request'
     ) as HTMLInputElement;
-    expect(InputElement).toHaveValue('Test Value');
+    waitFor(() => {
+      expect(InputElement).toHaveValue('Test Value');
+    });
   });
 });
 

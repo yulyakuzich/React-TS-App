@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for src/components/SearchField/SearchField.tsx</title>
+    <title>Code coverage report for src/components/CardComponent/CardComponent.tsx</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../../prettify.css" />
     <link rel="stylesheet" href="../../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/SearchField</a> SearchField.tsx</h1>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">src/components/CardComponent</a> CardComponent.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>54/54</span>
+                <span class='fraction'>55/55</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/6</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
-                <span class="quiet">Functions</span>
                 <span class='fraction'>3/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>1/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>54/54</span>
+                <span class='fraction'>55/55</span>
             </div>
         
             
@@ -117,7 +117,8 @@
 <a name='L52'></a><a href='#L52'>52</a>
 <a name='L53'></a><a href='#L53'>53</a>
 <a name='L54'></a><a href='#L54'>54</a>
-<a name='L55'></a><a href='#L55'>55</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L55'></a><a href='#L55'>55</a>
+<a name='L56'></a><a href='#L56'>56</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -127,102 +128,104 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
 <span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-yes">12x</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { useContext, useEffect, useState } from 'react';
-import { ButtonRounded } from '../UI/Buttons/ButtonRounded/ButtonRounded';
-import { SearchIcon } from '../UI/Icons/SearchIcon';
-import { SearchFieldProps } from './types';
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Link } from 'react-router-dom';
+import { PersonType } from '../MainSection/types';
 import './style.css';
-import {
-  SearchContext,
-  SearchDispatchContext,
-} from '../../context/SearchContext';
 &nbsp;
-export function SearchField() {
-  const [request, setRequest] = useState('');
+export type CardComponentProps = {
+  el: PersonType;
+  urlParams: string;
+};
 &nbsp;
-  const search = useContext(SearchContext);
-  const dispatchSearch = useContext(SearchDispatchContext);
-&nbsp;
-  useEffect(() =&gt; {
-    search &amp;&amp; setRequest(search);
-  }, [search]);
-&nbsp;
-  function handleRequestChange(e: React.FormEvent&lt;HTMLInputElement&gt;): void {
-    setRequest((e.target as HTMLInputElement).value);
-  }
-&nbsp;
-  function handleSubmit(e: React.MouseEvent&lt;HTMLElement&gt;) {
-    e.preventDefault();
-    dispatchSearch &amp;&amp;
-      dispatchSearch({
-        type: 'update',
-        text: request,
-      });
-  }
+export function CardComponent({ el, urlParams }: CardComponentProps) {
   return (
-    &lt;&gt;
-      &lt;div className="search_field"&gt;
-        &lt;form className="search_form"&gt;
-          &lt;div className="search_container"&gt;
-            &lt;input
-              className="search_input"
-              value={request}
-              placeholder="type your request"
-              onChange={handleRequestChange}
-            /&gt;
+    &lt;div className="characters_list_item column" data-testid="Card"&gt;
+      {el.url &amp;&amp; (
+        &lt;Link
+          className="character_link"
+          to={`persons/${el.url.replace(
+            'https://swapi.dev/api/people/',
+            ''
+          )}?${urlParams}`}
+        &gt;
+          &lt;div className="characters_list_item_avatar"&gt;
+            &lt;img src="/star-wars.svg" alt="" /&gt;
           &lt;/div&gt;
-          &lt;ButtonRounded
-            dataTestid="search-button"
-            onClick={handleSubmit}
-            icon={&lt;SearchIcon /&gt;}
-          &gt;&lt;/ButtonRounded&gt;
-        &lt;/form&gt;
+        &lt;/Link&gt;
+      )}
+&nbsp;
+      &lt;p className="characters_list_item_name"&gt;{el.name}&lt;/p&gt;
+      &lt;div className="characters_list_item_info"&gt;
+        &lt;p className="character_detail"&gt;
+          &lt;strong&gt;Birth year:&lt;/strong&gt; {el.birth_year}
+        &lt;/p&gt;
+        &lt;p className="character_detail"&gt;
+          &lt;strong&gt;Height:&lt;/strong&gt; {el.height}
+        &lt;/p&gt;
+        &lt;p className="character_detail"&gt;
+          &lt;strong&gt;Mass:&lt;/strong&gt; {el.mass}
+        &lt;/p&gt;
+        &lt;p className="character_detail"&gt;
+          &lt;strong&gt;Skin color:&lt;/strong&gt; {el.skin_color}
+        &lt;/p&gt;
       &lt;/div&gt;
-    &lt;/&gt;
+      {el.url &amp;&amp; (
+        &lt;Link
+          className="character_link"
+          to={`persons/${el.url.replace(
+            'https://swapi.dev/api/people/',
+            ''
+          )}?${urlParams.toString()}`}
+        &gt;
+          More details
+        &lt;/Link&gt;
+      )}
+    &lt;/div&gt;
   );
 }
 &nbsp;</pre></td></tr></table></pre>

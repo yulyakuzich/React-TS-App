@@ -1,19 +1,22 @@
 import './style.css';
-import { MainSectionProps } from './types';
 import { CardComponent } from '../CardComponent/CardComponent';
+import { useContext } from 'react';
+import { ResultsContext } from '../../context/ResultsContext';
 
-export default function MainSection(props: MainSectionProps) {
+export default function MainSection() {
   const urlParams = new URLSearchParams(window.location.search);
+
+  const results = useContext(ResultsContext);
 
   return (
     <main>
       <div className="characters_list">
-        {props.results.length == 0 && (
+        {results.length == 0 && (
           <div className="column fullwidth column-center no-results-message">
             no results
           </div>
         )}
-        {props.results.map((el) => (
+        {results.map((el) => (
           <CardComponent
             el={el}
             urlParams={urlParams.toString()}
