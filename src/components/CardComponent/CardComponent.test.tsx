@@ -27,13 +27,4 @@ describe('CardComponent', () => {
     expect(MassElement).toBeInTheDocument();
     expect(SkinElement).toBeInTheDocument();
   });
-  //   it('clicking on a card opens a detailed card component;', async () => {
-  //     const Route = '/persons/1/';
-  //     render(
-  //       <MemoryRouter initialEntries={[Route]}>
-  //         <App />
-  //       </MemoryRouter>
-  //     );
-
-  //   })
 });
