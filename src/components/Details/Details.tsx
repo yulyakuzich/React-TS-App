@@ -31,7 +31,7 @@ export default function Details() {
       ) : (
         details && (
           <>
-            <div className="close_icon">
+            <div className="close_icon" data-testId="close-button">
               <Link to={`/?${urlParams.toString()}`}>
                 <CloseIcon />
               </Link>

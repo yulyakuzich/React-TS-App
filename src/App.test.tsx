@@ -67,7 +67,7 @@ describe('Routing', () => {
     expect(screen.getByText('Page not found')).toBeInTheDocument();
   });
 
-  test('rendering a component that uses useLocation', () => {
+  it('rendering a component that uses useLocation', () => {
     const route = '/some-route';
 
     render(

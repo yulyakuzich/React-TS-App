@@ -11,7 +11,7 @@ import {
 import MainSection from './components/MainSection/MainSection';
 import { Pagination } from './components/Pagination/Pagination';
 import { LoadingComponent } from './components/LoadingComponent/LoadingComponent';
-import { SearchField } from './components/SearchField/SearchField';
+import { SearchField } from './components/SearchField';
 import Details from './components/Details/Details';
 import { Page404 } from './components/Page404/Page404';
 import { SearchProvider } from './context/SearchProvider';

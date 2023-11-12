@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { fireEvent, render, screen } from '@testing-library/react';
-import { SearchField } from './SearchField';
+import { SearchField } from '.';
 
 describe('SearchField', () => {
   it('should render inputElement', async () => {
