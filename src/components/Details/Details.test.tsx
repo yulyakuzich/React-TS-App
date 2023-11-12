@@ -1,10 +1,10 @@
 import React from 'react';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import Details from './Details';
 import { act } from 'react-dom/test-utils';
 import axios from 'axios';
 import { mockPerson } from '../../utils/mocks';
-import { BrowserRouter, MemoryRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 vi.mock('axios');
 

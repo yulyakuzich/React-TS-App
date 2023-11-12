@@ -8,7 +8,6 @@ import {
 import { CardComponent, CardComponentProps } from './CardComponent';
 import { mockPerson } from '../../utils/mocks';
 import Details from '../Details/Details';
-import { getPerson } from '../../api';
 
 const MockCardComponent = ({ el, urlParams }: CardComponentProps) => {
   return (
