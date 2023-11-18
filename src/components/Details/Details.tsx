@@ -1,37 +1,27 @@
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { getPerson } from '../../api';
 import './style.css';
 
-import { PersonType } from '../MainSection/types';
 import { CloseIcon } from '../UI/Icons/CloseIcon';
-import { useEffect, useState } from 'react';
 import { LoadingComponent } from '../LoadingComponent/LoadingComponent';
+import { useGetPeopleByIdQuery } from '../../services/api';
 
 export default function Details() {
-  const [loading, setLoading] = useState(false);
-  const [details, setDetails] = useState<PersonType | null>(null);
   const urlParams = new URLSearchParams(window.location.search);
-
   const navigate = useNavigate();
-
   const { id } = useParams();
-
-  useEffect(() => {
-    setLoading(true);
-    getPerson(id).then((resp) => {
-      setDetails(resp.data);
-      setLoading(false);
-    });
-  }, [id]);
+  const skip = !id;
+  const { data, isFetching } = useGetPeopleByIdQuery(id ? id.toString() : '', {
+    skip,
+  });
 
   return (
     <div className="item-details">
-      {loading ? (
+      {isFetching ? (
         <LoadingComponent />
       ) : (
-        details && (
+        data && (
           <>
-            <div className="close_icon" data-testId="close-button">
+            <div className="close_icon" data-testid="close-button">
               <Link to={`/?${urlParams.toString()}`}>
                 <CloseIcon />
               </Link>
@@ -41,36 +31,36 @@ export default function Details() {
               className="details-outside-area"
               onClick={() => navigate(`/?${urlParams.toString()}`)}
             ></div>
-            <p className="characters_list_item_name">{details.name}</p>
+            <p className="characters_list_item_name">{data.name}</p>
             <p className="character_detail">
-              <strong>Birth year:</strong> {details.birth_year}
+              <strong>Birth year:</strong> {data.birth_year}
             </p>
             <p className="character_detail">
-              <strong>Height:</strong> {details.height}
+              <strong>Height:</strong> {data.height}
             </p>
             <p className="character_detail">
-              <strong>Mass:</strong> {details.mass}
+              <strong>Mass:</strong> {data.mass}
             </p>
             <p className="character_detail">
-              <strong>Skin color:</strong> {details.skin_color}
+              <strong>Skin color:</strong> {data.skin_color}
             </p>
             <p className="character_detail">
-              <strong>Created:</strong> {details.created}
+              <strong>Created:</strong> {data.created}
             </p>
             <p className="character_detail">
-              <strong>Edited:</strong> {details.edited}
+              <strong>Edited:</strong> {data.edited}
             </p>
             <p className="character_detail">
-              <strong>Eye color:</strong> {details.eye_color}
+              <strong>Eye color:</strong> {data.eye_color}
             </p>
             <p className="character_detail">
-              <strong>Gender:</strong> {details.gender}
+              <strong>Gender:</strong> {data.gender}
             </p>
             <p className="character_detail">
-              <strong>Hair color:</strong> {details.hair_color}
+              <strong>Hair color:</strong> {data.hair_color}
             </p>
             <p className="character_detail">
-              <strong>Homeworld:</strong> {details.homeworld}
+              <strong>Homeworld:</strong> {data.homeworld}
             </p>
           </>
         )

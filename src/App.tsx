@@ -1,6 +1,4 @@
-import { getPeople } from './api';
 import ErrorButtonLayout from './components/ErrorButtonLayout/errorButtonLayout';
-import { useContext, useEffect, useState } from 'react';
 import {
   Outlet,
   Route,
@@ -10,18 +8,13 @@ import {
 } from 'react-router-dom';
 import MainSection from './components/MainSection/MainSection';
 import { Pagination } from './components/Pagination/Pagination';
-import { LoadingComponent } from './components/LoadingComponent/LoadingComponent';
 import { SearchField } from './components/SearchField';
 import Details from './components/Details/Details';
 import { Page404 } from './components/Page404/Page404';
-import { SearchProvider } from './context/SearchProvider';
-import { SearchContext } from './context/SearchContext';
-import {
-  ResultsContext,
-  ResultsDispatchContext,
-} from './context/ResultsContext';
-import { PersonType } from './components/MainSection/types';
-import { ResultsProvider } from './context/ResultsProvider';
+
+import { Provider, useSelector } from 'react-redux';
+import store, { RootState } from './store';
+import { useGetAllPeopleQuery } from './services/api';
 
 export const LocationDisplay = () => {
   const location = useLocation();
@@ -30,34 +23,18 @@ export const LocationDisplay = () => {
 };
 
 export const AppLayout = () => {
-  const [loading, setLoading] = useState(false);
-  const [total, setTotal] = useState(0);
-
   const [searchParams, setSearchParams] = useSearchParams();
+  const { page, search } = Object.fromEntries(searchParams);
+  const searchFromSelector = useSelector(
+    (state: RootState) => state.search.value
+  );
 
-  const { page } = Object.fromEntries(searchParams);
-
-  const search = useContext(SearchContext);
-  const results = useContext(ResultsContext);
-  const dispatchResults = useContext(ResultsDispatchContext);
-
-  const searchLocal = search ? search : localStorage.getItem('search') || '';
+  const { data, isFetching } = useGetAllPeopleQuery({
+    page,
+    search: search ? search : searchFromSelector,
+  });
 
   const location = useLocation();
-
-  const updateResults = (res: PersonType[]) => {
-    dispatchResults && dispatchResults({ type: 'update', items: res });
-  };
-
-  useEffect(() => {
-    setLoading(true);
-
-    getPeople(search || '', page).then((resp) => {
-      updateResults(resp.data.results);
-      setTotal(resp.data.count);
-      setLoading(false);
-    });
-  }, [searchLocal, page, search]);
 
   const handlePageChange = (page: number) => {
     setSearchParams({
@@ -78,12 +55,12 @@ export const AppLayout = () => {
           />
         </div>
         <SearchField />
-        {loading ? <LoadingComponent /> : <MainSection />}
+        <MainSection />
 
-        {!loading && results.length !== 0 && (
+        {!isFetching && data && data.results.length !== 0 && (
           <Pagination
             onChange={handlePageChange}
-            total={total}
+            total={data ? data.count : 0}
             currentPage={page ? parseInt(page) : 1}
           />
         )}
@@ -115,21 +92,15 @@ export const ErrorEl = () => {
 export default function App() {
   return (
     <>
-      <SearchProvider>
-        <ResultsProvider>
-          <Routes>
-            <Route
-              path={'/'}
-              element={<AppLayout />}
-              errorElement={<ErrorEl />}
-            >
-              <Route path="persons/:id" element={<Details />} />
-            </Route>
-            <Route path="*" element={<Page404 />}></Route>
-          </Routes>
-          <LocationDisplay />
-        </ResultsProvider>
-      </SearchProvider>
+      <Provider store={store}>
+        <Routes>
+          <Route path={'/'} element={<AppLayout />} errorElement={<ErrorEl />}>
+            <Route path="persons/:id" element={<Details />} />
+          </Route>
+          <Route path="*" element={<Page404 />}></Route>
+        </Routes>
+        <LocationDisplay />
+      </Provider>
     </>
   );
 }

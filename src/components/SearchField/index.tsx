@@ -1,17 +1,26 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ButtonRounded } from '../UI/Buttons/ButtonRounded/ButtonRounded';
 import { SearchIcon } from '../UI/Icons/SearchIcon';
 import './style.css';
-import {
-  SearchContext,
-  SearchDispatchContext,
-} from '../../context/SearchContext';
+
+import { useDispatch } from 'react-redux';
+
+import { update } from '../../store/searchSlice';
+import { useSearchParams } from 'react-router-dom';
 
 export function SearchField() {
   const [request, setRequest] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const search = useContext(SearchContext);
-  const dispatchSearch = useContext(SearchDispatchContext);
+  const handleSearchChange = () => {
+    setSearchParams({
+      ...Object.fromEntries(searchParams),
+      search: request,
+    });
+  };
+
+  const search = Object.fromEntries(searchParams).search;
+  const dispatch = useDispatch();
 
   useEffect(() => {
     search && setRequest(search);
@@ -23,11 +32,8 @@ export function SearchField() {
 
   function handleSubmit(e: React.MouseEvent<HTMLElement>) {
     e.preventDefault();
-    dispatchSearch &&
-      dispatchSearch({
-        type: 'update',
-        text: request,
-      });
+    handleSearchChange();
+    dispatch(update(request));
   }
   return (
     <>
