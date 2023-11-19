@@ -32,6 +32,7 @@ export default function MainSection() {
         {data &&
           data.results.map((el) => (
             <CardComponent
+              data-testid="Card"
               el={el}
               urlParams={urlParams.toString()}
               key={el.name}

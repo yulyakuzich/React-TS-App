@@ -1,34 +1,35 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import MainSection from './MainSection';
 import { mockResultsCards } from '../../utils/mocks';
-import { PersonType } from './types';
-import { ReactNode } from 'react';
-import { ResultsContext } from '../../context/ResultsContext';
 
-const customRender = (
-  ui: ReactNode,
-  {
-    providerProps,
-    ...renderOptions
-  }: { providerProps: { value: PersonType[] } }
-) => {
-  return render(
-    <ResultsContext.Provider {...providerProps}>{ui}</ResultsContext.Provider>,
-    renderOptions
+import store from '../../store';
+import { Provider } from 'react-redux';
+import { BrowserRouter } from 'react-router-dom';
+
+const MockMainSection = () => {
+  return (
+    <Provider store={store}>
+      <BrowserRouter>
+        <MainSection />
+      </BrowserRouter>
+    </Provider>
   );
 };
+
 describe('MainSection', () => {
   it('renders the specified number of cards', () => {
-    const providerProps = { value: mockResultsCards };
-    customRender(<MainSection />, { providerProps });
-    const cards = screen.getAllByTestId('Card');
-    expect(cards.length).toBe(mockResultsCards.length);
+    render(<MockMainSection />);
+    waitFor(() => {
+      const cards = screen.getAllByTestId('Card');
+      expect(cards.length).toBe(mockResultsCards.length);
+    });
   });
 
   it('displays "no results" message if no cards are present', () => {
-    const providerProps: { value: PersonType[] } = { value: [] };
-    customRender(<MainSection />, { providerProps });
-    const noResultsMessage = screen.getByText('no results');
-    expect(noResultsMessage).toBeInTheDocument();
+    render(<MockMainSection />);
+    waitFor(() => {
+      const noResultsMessage = screen.getByText(/no results/i);
+      expect(noResultsMessage).toBeInTheDocument();
+    });
   });
 });
