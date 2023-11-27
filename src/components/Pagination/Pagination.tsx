@@ -1,5 +1,5 @@
 import { PaginationProps } from './types';
-import './style.css';
+import styles from './Pagination.module.css';
 import { ButtonRoundedBordered } from '../UI/Buttons/ButtonRoundedBordered/ButtonRoundedBordered';
 import { ArrowLeft } from '../UI/Icons/ArrowLeft';
 import { ArrowRight } from '../UI/Icons/ArrowRight';
@@ -23,7 +23,7 @@ export function Pagination({ total, currentPage, onChange }: PaginationProps) {
   };
 
   return (
-    <div className="pagination_container column">
+    <div className={styles.pagination_container + ' column'}>
       <div className="row">
         <ButtonRoundedBordered
           icon={<ArrowLeft />}

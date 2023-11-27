@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { PersonType } from '../MainSection/types';
-import './style.css';
+import styles from './CardComponent.module.css';
 
 export type CardComponentProps = {
   el: PersonType;
@@ -9,40 +10,40 @@ export type CardComponentProps = {
 
 export function CardComponent({ el, urlParams }: CardComponentProps) {
   return (
-    <div className="characters_list_item column" data-testid="Card">
+    <div className={styles.characters_list_item + ' column'} data-testid="Card">
       {el.url && (
         <Link
-          className="character_link"
-          to={`persons/${el.url.replace(
+          className={styles.character_link}
+          href={`persons/${el.url.replace(
             'https://swapi.dev/api/people/',
             ''
           )}?${urlParams}`}
         >
-          <div className="characters_list_item_avatar">
+          <div className={styles.characters_list_item_avatar}>
             <img src="/star-wars.svg" alt="" />
           </div>
         </Link>
       )}
 
-      <p className="characters_list_item_name">{el.name}</p>
-      <div className="characters_list_item_info">
-        <p className="character_detail">
+      <p className={styles.characters_list_item_name}>{el.name}</p>
+      <div className={styles.characters_list_item_info}>
+        <p className={styles.character_detail}>
           <strong>Birth year:</strong> {el.birth_year}
         </p>
-        <p className="character_detail">
+        <p className={styles.character_detail}>
           <strong>Height:</strong> {el.height}
         </p>
-        <p className="character_detail">
+        <p className={styles.character_detail}>
           <strong>Mass:</strong> {el.mass}
         </p>
-        <p className="character_detail">
+        <p className={styles.character_detail}>
           <strong>Skin color:</strong> {el.skin_color}
         </p>
       </div>
       {el.url && (
         <Link
-          className="character_link"
-          to={`persons/${el.url.replace(
+          className={styles.character_link}
+          href={`persons/${el.url.replace(
             'https://swapi.dev/api/people/',
             ''
           )}?${urlParams.toString()}`}

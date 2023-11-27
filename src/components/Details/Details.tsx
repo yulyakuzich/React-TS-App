@@ -1,19 +1,17 @@
-import { Link, useNavigate, useParams } from 'react-router-dom';
 import './style.css';
 
 import { CloseIcon } from '../UI/Icons/CloseIcon';
 import { LoadingComponent } from '../LoadingComponent/LoadingComponent';
-import { useGetPeopleByIdQuery } from '../../services/api';
+import { PersonType } from '../MainSection/types';
+import Link from 'next/link';
 
-export default function Details() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const skip = !id;
-  const { data, isFetching } = useGetPeopleByIdQuery(id ? id.toString() : '', {
-    skip,
-  });
-
+export default function Details({
+  data,
+  isFetching,
+}: {
+  data: PersonType;
+  isFetching: boolean;
+}) {
   return (
     <div className="item-details">
       {isFetching ? (
@@ -22,14 +20,14 @@ export default function Details() {
         data && (
           <>
             <div className="close_icon" data-testid="close-button">
-              <Link to={`/?${urlParams.toString()}`}>
+              <Link href={`/`}>
                 <CloseIcon />
               </Link>
             </div>
 
             <div
               className="details-outside-area"
-              onClick={() => navigate(`/?${urlParams.toString()}`)}
+              // onClick={() => navigate(`/?${urlParams.toString()}`)}
             ></div>
             <p className="characters_list_item_name">{data.name}</p>
             <p className="character_detail">

@@ -1,5 +1,5 @@
 import { ButtonProps } from '../types';
-import '../style.css';
+// import '../style.css';
 
 export function ButtonClassic({ type, children, icon, onClick }: ButtonProps) {
   return (

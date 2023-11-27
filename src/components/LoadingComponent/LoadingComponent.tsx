@@ -1,13 +1,13 @@
-import './style.css';
+import styles from './LoadingComponent.module.css';
 
 export function LoadingComponent() {
   return (
     <section>
       <div className="column">
-        <div className="loading_container">
-          <div data-testid="loading" className="ring">
+        <div className={styles.loading_container}>
+          <div data-testid="loading" className={styles.ring}>
             Loading
-            <span className="circle"></span>
+            <span className={styles.circle}></span>
           </div>
         </div>
       </div>
