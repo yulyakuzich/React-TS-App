@@ -1,0 +1,6 @@
+#!/bin/sh
+# .husky/pre-push
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run your pre-push commands or scripts
+npm run test -- --watchAll=false
