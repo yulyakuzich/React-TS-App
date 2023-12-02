@@ -25,9 +25,8 @@
   padding: 10px;
   transition: 0.8s;
   cursor: pointer;
-  height: 40px;
-  width: 40px;
-  border-radius: 100%;
+  text-decoration: none;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;

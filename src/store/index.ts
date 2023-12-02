@@ -1,14 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-import searchReducer from './searchSlice';
-import { peopleApi } from '../services/api';
+import formReducer from './searchSlice';
 
 const store = configureStore({
   reducer: {
-    search: searchReducer,
-    [peopleApi.reducerPath]: peopleApi.reducer,
+    form: formReducer,
   },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(peopleApi.middleware),
 });
 
 export default store;
