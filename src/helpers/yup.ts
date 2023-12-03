@@ -3,38 +3,38 @@ import * as yup from 'yup';
 export const schema = yup.object().shape({
   name: yup
     .string()
-    .required('Name is a required field')
-    .matches(/^[A-Z][a-zA-Z]*$/, 'First uppercased letter'),
-  age: yup.number().min(0).required('Age is a required field'),
+    .required('name is a required field')
+    .matches(/^[A-Z][a-zA-Z]*$/, 'name need first uppercased letter'),
+  age: yup.number().min(0).required('age is a required field'),
   email: yup
     .string()
-    .email('E-mail is not valid!')
-    .required('Email is a required field'),
+    .email('email is not valid!')
+    .required('email is a required field'),
   password: yup
     .string()
     .min(8)
     .max(32)
     .matches(
       /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9])/,
-      '1 number, 1 uppercased letter, 1 lowercased letter, 1 special character'
+      'password needs 1 number, 1 uppercased letter, 1 lowercased letter, 1 special character'
     )
-    .required('Password is a required field'),
+    .required('password is a required field'),
   password_confirm: yup
     .string()
     .min(8)
     .max(32)
     .matches(
       /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9])/,
-      '1 number, 1 uppercased letter, 1 lowercased letter, 1 special character'
+      'password needs 1 number, 1 uppercased letter, 1 lowercased letter, 1 special character'
     )
-    .required('Password is a required field')
-    .oneOf([yup.ref('password')], 'Passwords must match'),
+    .required('password is a required field')
+    .oneOf([yup.ref('password')], 'passwords must match'),
 
-  gender: yup.string().required('Gender is a required field'),
+  gender: yup.string().required('gender is a required field'),
   acceptTC: yup
     .bool()
-    .required('It is a required field')
-    .oneOf([true], 'You must accept the terms and conditions'),
+    .required('T&C is a required field')
+    .oneOf([true], 'you must accept the T&C'),
   photo: yup
     .mixed<FileList>()
     .required('please upload a picture')
@@ -58,5 +58,5 @@ export const schema = yup.object().shape({
         }
       }
     ),
-  country: yup.string().required('Country is a required field'),
+  country: yup.string().required('country is a required field'),
 });

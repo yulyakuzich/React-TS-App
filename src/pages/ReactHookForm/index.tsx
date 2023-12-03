@@ -6,6 +6,7 @@ import { ButtonClassic } from '../../components/UI/Buttons/ButtonClassic/ButtonC
 import { schema } from '../../helpers/yup';
 import { Countries } from '../../helpers/const';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 export interface FormState {
   name: string;
@@ -19,7 +20,7 @@ export interface FormState {
   country: string;
 }
 
-const toBase64 = (file: File): Promise<string> =>
+export const toBase64 = (file: File): Promise<string> =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -30,6 +31,7 @@ const toBase64 = (file: File): Promise<string> =>
 export default function ReactHookForm() {
   const dispatch = useDispatch();
   const { name } = useSelector(selectForm);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -47,6 +49,7 @@ export default function ReactHookForm() {
     if (data.photo) {
       const payload = { ...data, photo: await toBase64(data.photo[0]) };
       dispatch(update(payload));
+      navigate('/');
       reset();
     }
   }
@@ -70,6 +73,7 @@ export default function ReactHookForm() {
     setValue('country', el);
     setAutocompleteItems([]);
   };
+
   return (
     <main className="container">
       <h1 className="title">React Hook Form</h1>
