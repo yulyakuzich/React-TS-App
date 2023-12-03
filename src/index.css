@@ -223,3 +223,7 @@ input {
   height: 20px;
   margin-left: 10px;
 }
+.personal-data {
+  margin-left: 10px;
+  font-style: italic;
+}

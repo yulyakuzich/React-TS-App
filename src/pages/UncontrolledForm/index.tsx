@@ -5,7 +5,7 @@ import { ButtonClassic } from '../../components/UI/Buttons/ButtonClassic/ButtonC
 import { schema } from '../../helpers/yup';
 import { useDispatch } from 'react-redux';
 import { update } from '../../store/searchSlice';
-import { toBase64 } from '../ReactHookForm';
+import { toBase64 } from '../../helpers/functions';
 
 export default function UncontrolledForm() {
   const [autocompleteItems, setAutocompleteItems] = useState<string[]>([]);

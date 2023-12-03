@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { selectForm, update } from '../../store/searchSlice';
+import { update } from '../../store/searchSlice';
 import { useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ButtonClassic } from '../../components/UI/Buttons/ButtonClassic/ButtonClaasic';
 import { schema } from '../../helpers/yup';
 import { Countries } from '../../helpers/const';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { toBase64 } from '../../helpers/functions';
 
 export interface FormState {
   name: string;
@@ -20,17 +21,8 @@ export interface FormState {
   country: string;
 }
 
-export const toBase64 = (file: File): Promise<string> =>
-  new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result as string);
-    reader.onerror = reject;
-  });
-
 export default function ReactHookForm() {
   const dispatch = useDispatch();
-  const { name } = useSelector(selectForm);
   const navigate = useNavigate();
 
   const {
@@ -191,7 +183,6 @@ export default function ReactHookForm() {
         </div>
         <ButtonClassic type="submit">Submit</ButtonClassic>
       </form>
-      <p>{name}</p>
     </main>
   );
 }
