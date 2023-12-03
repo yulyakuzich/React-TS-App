@@ -1,55 +1,71 @@
 import { useEffect, useState } from 'react';
-import { FormState } from '../../store/searchSlice';
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { selectForm, update } from '../../store/searchSlice';
+import { useForm, useWatch } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ButtonClassic } from '../../components/UI/Buttons/ButtonClassic/ButtonClaasic';
 import { schema } from '../../helpers/yup';
 import { Countries } from '../../helpers/const';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+
+export interface FormState {
+  name: string;
+  age: number;
+  email: string;
+  password: string;
+  password_confirm: string;
+  gender: string;
+  acceptTC: boolean;
+  photo: FileList | null;
+  country: string;
+}
+
+const toBase64 = (file: File): Promise<string> =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result as string);
+    reader.onerror = reject;
+  });
 
 export default function ReactHookForm() {
+  const dispatch = useDispatch();
+  const { name } = useSelector(selectForm);
+
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-    watch,
     setValue,
+    control,
   } = useForm({
     resolver: yupResolver(schema),
     mode: 'onChange',
   });
 
-  const onSubmit: SubmitHandler<FormState> = (data) => {
-    console.log(data);
-    reset();
-  };
+  async function onSubmit(data: FormState) {
+    if (data.photo) {
+      const payload = { ...data, photo: await toBase64(data.photo[0]) };
+      dispatch(update(payload));
+      reset();
+    }
+  }
 
   const [autocompleteItems, setAutocompleteItems] = useState<string[]>([]);
-  // const [country, setCountry] = useState('');
+
+  const country = useWatch({ control, name: 'country' });
 
   useEffect(() => {
-    const subscription = watch((value) => {
-      const newArr: string[] = value.country
+    if (country) {
+      const newArr: string[] = country
         ? Countries.filter((el) =>
-            el
-              .toLowerCase()
-              .includes(value.country ? value.country.toLowerCase() : '')
+            el.toLowerCase().includes(country ? country.toLowerCase() : '')
           )
         : [];
       setAutocompleteItems(newArr);
-    });
-    return () => subscription.unsubscribe();
-  }, [watch]);
-
-  // const handleAutocompleteChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   setCountry(event.target.value);
-  //   const newArr: string[] = event.target.value
-  //     ? Countries.filter((el) =>
-  //         el.toLowerCase().includes(event.target.value.toLowerCase())
-  //       )
-  //     : [];
-  //   setAutocompleteItems(newArr);
-  // };
+    }
+  }, [country]);
 
   const onAutocompleteSelectItem = (el: string) => {
     setValue('country', el);
@@ -90,15 +106,15 @@ export default function ReactHookForm() {
           <div className="column form__item">
             Gender:
             <label>
-              <input type="radio" {...register('gender')} />
+              <input type="radio" {...register('gender')} value="male" />
               Male
             </label>
             <label>
-              <input type="radio" name="gender" value="female" />
+              <input type="radio" {...register('gender')} value="female" />
               Female
             </label>
             <label>
-              <input type="radio" name="gender" value="other" />
+              <input type="radio" {...register('gender')} value="other" />
               Other
             </label>
             {errors.gender && (
@@ -135,31 +151,30 @@ export default function ReactHookForm() {
               Password:
               <input type="password" {...register('password')} />
             </label>
+            {errors.password && (
+              <p className="error__message">{errors.password.message}</p>
+            )}
           </div>
           <div className="form__item">
             <label htmlFor="password_confirm">
               Repeat password:
-              <input
-                type="password"
-                {...register('password_confirm', {
-                  validate: (val: string) => {
-                    if (watch('password') != val) {
-                      return 'Your passwords do no match';
-                    }
-                  },
-                })}
-              />
+              <input type="password" {...register('password_confirm')} />
             </label>
+            {errors.password_confirm && (
+              <p className="error__message">
+                {errors.password_confirm.message}
+              </p>
+            )}
           </div>
-          {errors.password && (
-            <p className="error__message">{errors.password.message}</p>
-          )}
         </div>
         <div className="form__container_field">
           <div className="form__item">
             <label>
               accept T&C: <input type="checkbox" {...register('acceptTC')} />
             </label>
+            {errors.acceptTC && (
+              <p className="error__message">{errors.acceptTC.message}</p>
+            )}
           </div>
           <div className="form__item">
             <label>
@@ -173,6 +188,7 @@ export default function ReactHookForm() {
         </div>
         <ButtonClassic type="submit">Submit</ButtonClassic>
       </form>
+      <p>{name}</p>
     </main>
   );
 }

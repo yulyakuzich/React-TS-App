@@ -1,16 +1,5 @@
 import * as yup from 'yup';
 
-const MAX_FILE_SIZE = 102400;
-
-const validFileExtensions: string[] = ['jpg', 'png'];
-
-function isValidFileType(fileName: string | undefined): boolean {
-  return (
-    !!fileName &&
-    validFileExtensions.indexOf(fileName.split('.').pop()!.toLowerCase()) > -1
-  );
-}
-
 export const schema = yup.object().shape({
   name: yup
     .string()
@@ -38,25 +27,35 @@ export const schema = yup.object().shape({
       /^(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.*[^a-zA-Z0-9])/,
       '1 number, 1 uppercased letter, 1 lowercased letter, 1 special character'
     )
-    .required('Password is a required field'),
+    .required('Password is a required field')
+    .oneOf([yup.ref('password')], 'Passwords must match'),
 
   gender: yup.string().required('Gender is a required field'),
   acceptTC: yup
     .bool()
+    .required('It is a required field')
     .oneOf([true], 'You must accept the terms and conditions'),
   photo: yup
-    .mixed()
-    .required('Photo is a required field')
-    .test('is-valid-type', 'Not a valid image type', (value) => {
-      const file = Array.isArray(value) ? value[0] : value?.[0];
-      return isValidFileType(file?.name && file.name.toLowerCase());
-    })
+    .mixed<FileList>()
+    .required('please upload a picture')
     .test(
-      'is-valid-size',
-      `Max allowed size is ${MAX_FILE_SIZE / 1024}KB`,
+      'isSizeCorrect',
+      'picture size must be equal or less than 1 MB',
       (value) => {
-        const file = Array.isArray(value) ? value[0] : value?.[0];
-        return !!file && file.size <= MAX_FILE_SIZE;
+        if (value[0]) {
+          const size: number = value[0].size;
+          return size <= 1000000;
+        }
+      }
+    )
+    .test(
+      'extensionIsOK',
+      'picture should have an extension jpg or png',
+      (value) => {
+        if (value[0]) {
+          const type: string = value[0].type;
+          return type === 'image/jpg' || type === 'image/png';
+        }
       }
     ),
   country: yup.string().required('Country is a required field'),
