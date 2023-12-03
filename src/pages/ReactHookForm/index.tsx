@@ -6,7 +6,6 @@ import { ButtonClassic } from '../../components/UI/Buttons/ButtonClassic/ButtonC
 import { schema } from '../../helpers/yup';
 import { Countries } from '../../helpers/const';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
 
 export interface FormState {
   name: string;
